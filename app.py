@@ -7,6 +7,7 @@ from PIL import Image
 BRAND_NAVY = '#0F172A'
 BRAND_ORANGE = '#F59E0B'
 BRAND_WHITE = '#F8FAFC'
+BRAND_INPUT_BG = '#1E293B' # Kutucuklar için
 
 # --- SAYFA AYARLARI ---
 st.set_page_config(
@@ -16,15 +17,59 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- ZORUNLU CSS ---
+# --- ZORUNLU CSS (TAM DÜZELTİLMİŞ) ---
 st.markdown(f"""
 <style>
-    .stApp {{ background-color: {BRAND_NAVY}; color: {BRAND_WHITE}; }}
-    [data-testid="stSidebar"] {{ background-color: #1E293B; }}
-    h1, h2, h3, h4, h5, h6, p, span, div, label {{ color: {BRAND_WHITE} !important; }}
-    [data-testid="stMetricValue"] {{ color: {BRAND_ORANGE} !important; }}
-    div.stSlider > div[data-baseweb="slider"] > div > div > div[role="slider"]{{ background-color: {BRAND_ORANGE}; }}
-    .stSlider div[data-testid="stMarkdownContainer"] p {{ color: {BRAND_WHITE} !important; }}
+    /* Ana arka plan */
+    .stApp {{
+        background-color: {BRAND_NAVY};
+        color: {BRAND_WHITE};
+    }}
+    /* Yan menü arka planı */
+    [data-testid="stSidebar"] {{
+        background-color: {BRAND_INPUT_BG};
+    }}
+    /* Tüm genel yazıları beyaz yap */
+    h1, h2, h3, h4, h5, h6, p, span, div, label, li {{
+        color: {BRAND_WHITE} !important;
+    }}
+    /* Metrik değerlerini turuncu yap */
+    [data-testid="stMetricValue"] {{
+        color: {BRAND_ORANGE} !important;
+    }}
+    
+    /* --- GİRİŞ KUTULARI (INPUTS) --- */
+    [data-testid="stTextInput"] input {{
+        background-color: {BRAND_INPUT_BG} !important;
+        color: {BRAND_WHITE} !important;
+        border: 1px solid {BRAND_ORANGE} !important;
+    }}
+    
+    /* --- SEÇİM KUTULARI (SELECTBOX) --- */
+    div[data-baseweb="select"] > div {{
+        background-color: {BRAND_INPUT_BG} !important;
+        color: {BRAND_WHITE} !important;
+        border: 1px solid {BRAND_ORANGE} !important;
+    }}
+    div[data-baseweb="popover"] div {{
+        background-color: {BRAND_INPUT_BG} !important;
+        color: {BRAND_WHITE} !important;
+    }}
+    
+    /* --- RAPOR KUTUSU (CODE BLOCK) DÜZELTMESİ --- */
+    [data-testid="stCodeBlock"] pre {{
+        background-color: {BRAND_INPUT_BG} !important;
+        border: 1px solid {BRAND_ORANGE} !important;
+        border-radius: 10px;
+    }}
+    code {{
+        color: {BRAND_WHITE} !important;
+    }}
+    
+    /* --- SLIDER RENKLERİ --- */
+    div.stSlider > div[data-baseweb="slider"] > div > div > div[role="slider"]{{
+        background-color: {BRAND_ORANGE};
+    }}
     .streamlit-expanderHeader {{ color: {BRAND_ORANGE} !important; font-weight: bold; }}
 </style>
 """, unsafe_allow_html=True)
@@ -45,7 +90,7 @@ st.markdown("---")
 # --- YAN MENÜ ---
 st.sidebar.header("📋 İşletme Kimliği")
 isletme_adi = st.sidebar.text_input("İşletme Adı", "Örnek İşletme")
-yetkili = st.sidebar.text_input("Yetkili Kişi", "Ad Soyad") # HATA VEREN KISIM BURASIYDI, EKLENDİ.
+yetkili = st.sidebar.text_input("Yetkili Kişi", "Ad Soyad")
 sektor = st.sidebar.selectbox("Sektör Seçimi", [
     "Perakende (Telefon/Kırtasiye/Butik)", 
     "Hizmet (Berber/Güzellik/Klinik)", 
@@ -220,7 +265,7 @@ elif "E-Ticaret" in sektor:
 st.markdown("---")
 col_graph, col_result = st.columns([1.5, 1])
 
-# Hesaplamaları burada yapıyoruz ki aşağıdaki bölüm erişebilsin
+# Hesaplamaları burada yapıyoruz
 ortalama_puan = sum(values := list(scores.values())) / len(values) if scores else 0
 zayif_noktalar = {k: v for k, v in scores.items() if v < 6}
 
