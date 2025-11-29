@@ -17,7 +17,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# --- ZORUNLU CSS (TAM DÜZELTİLMİŞ) ---
+# --- ZORUNLU CSS (BEYAZLIKLARI YOK EDEN VERSİYON) ---
 st.markdown(f"""
 <style>
     /* Ana arka plan */
@@ -56,14 +56,33 @@ st.markdown(f"""
         color: {BRAND_WHITE} !important;
     }}
     
-    /* --- RAPOR KUTUSU (CODE BLOCK) DÜZELTMESİ --- */
-    [data-testid="stCodeBlock"] pre {{
+    /* --- RAPOR KUTUSU (CODE BLOCK) TAM DÜZELTME --- */
+    /* Kutunun tamamı */
+    [data-testid="stCodeBlock"] {{
         background-color: {BRAND_INPUT_BG} !important;
         border: 1px solid {BRAND_ORANGE} !important;
-        border-radius: 10px;
+        border-radius: 10px !important;
     }}
-    code {{
+    /* İçindeki metin alanı (pre) */
+    [data-testid="stCodeBlock"] pre {{
+        background-color: transparent !important; /* Kapsayıcının rengini alsın */
+        border: none !important;
         color: {BRAND_WHITE} !important;
+    }}
+    /* Metnin kendisi (code ve içindeki span'lar) */
+    [data-testid="stCodeBlock"] code, [data-testid="stCodeBlock"] code span {{
+        background-color: transparent !important;
+        color: {BRAND_WHITE} !important;
+        font-family: 'Source Code Pro', monospace !important;
+    }}
+    /* Kopyala butonu */
+    [data-testid="stCodeBlock"] button {{
+        color: {BRAND_WHITE} !important;
+        background-color: transparent !important;
+    }}
+    [data-testid="stCodeBlock"] button:hover {{
+        color: {BRAND_ORANGE} !important;
+        background-color: {BRAND_NAVY} !important;
     }}
     
     /* --- SLIDER RENKLERİ --- */
