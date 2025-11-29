@@ -7,7 +7,7 @@ from PIL import Image
 BRAND_NAVY = '#0F172A'
 BRAND_ORANGE = '#F59E0B'
 BRAND_WHITE = '#F8FAFC'
-BRAND_INPUT_BG = '#1E293B' # Kutucuklar için
+BRAND_INPUT_BG = '#1E293B'
 
 # --- SAYFA AYARLARI ---
 st.set_page_config(
@@ -38,14 +38,14 @@ st.markdown(f"""
         color: {BRAND_ORANGE} !important;
     }}
     
-    /* --- GİRİŞ KUTULARI (INPUTS) --- */
+    /* --- GİRİŞ KUTULARI --- */
     [data-testid="stTextInput"] input {{
         background-color: {BRAND_INPUT_BG} !important;
         color: {BRAND_WHITE} !important;
         border: 1px solid {BRAND_ORANGE} !important;
     }}
     
-    /* --- SEÇİM KUTULARI (SELECTBOX) --- */
+    /* --- SEÇİM KUTULARI --- */
     div[data-baseweb="select"] > div {{
         background-color: {BRAND_INPUT_BG} !important;
         color: {BRAND_WHITE} !important;
@@ -56,33 +56,26 @@ st.markdown(f"""
         color: {BRAND_WHITE} !important;
     }}
     
-    /* --- RAPOR KUTUSU (CODE BLOCK) TAM DÜZELTME --- */
-    /* Kutunun tamamı */
+    /* --- RAPOR KUTUSU (ST.CODE) KESİN DÜZELTME --- */
+    /* Kutunun içindeki HER ŞEYİ zorla koyu yap */
     [data-testid="stCodeBlock"] {{
         background-color: {BRAND_INPUT_BG} !important;
         border: 1px solid {BRAND_ORANGE} !important;
         border-radius: 10px !important;
     }}
-    /* İçindeki metin alanı (pre) */
-    [data-testid="stCodeBlock"] pre {{
-        background-color: transparent !important; /* Kapsayıcının rengini alsın */
-        border: none !important;
-        color: {BRAND_WHITE} !important;
-    }}
-    /* Metnin kendisi (code ve içindeki span'lar) */
-    [data-testid="stCodeBlock"] code, [data-testid="stCodeBlock"] code span {{
-        background-color: transparent !important;
+    [data-testid="stCodeBlock"] * {{
+        background-color: {BRAND_INPUT_BG} !important;
         color: {BRAND_WHITE} !important;
         font-family: 'Source Code Pro', monospace !important;
     }}
-    /* Kopyala butonu */
+    
+    /* Kopyala butonu özel ayarı */
     [data-testid="stCodeBlock"] button {{
-        color: {BRAND_WHITE} !important;
         background-color: transparent !important;
+        color: {BRAND_WHITE} !important;
     }}
     [data-testid="stCodeBlock"] button:hover {{
         color: {BRAND_ORANGE} !important;
-        background-color: {BRAND_NAVY} !important;
     }}
     
     /* --- SLIDER RENKLERİ --- */
